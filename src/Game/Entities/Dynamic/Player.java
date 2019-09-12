@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.GameStates.State;
+
 /**
  * Created by AlexVR on 7/2/2018.
  */
@@ -19,8 +21,11 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
-
+    
     public String direction;//is your first name one?
+    
+    //setting a default speed to snake
+    public int speed = 4;
 
     public Player(Handler handler){
         this.handler = handler;
@@ -35,10 +40,15 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        if(moveCounter>=5) {
+        //ticks++;
+        if(moveCounter>=speed) {
             checkCollisionAndMove();
             moveCounter=0;
         }
+//        if(moveCounter>=5) {
+//            checkCollisionAndMove();
+//            moveCounter=0;
+//        }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
             direction="Up";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
@@ -48,6 +58,9 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
             direction="Right";
         }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
+            State.setState(handler.getGame().pauseState);
+        }
 
     }
 
@@ -55,6 +68,11 @@ public class Player {
         handler.getWorld().playerLocation[xCoord][yCoord]=false;
         int x = xCoord;
         int y = yCoord;
+        for(Tail t : handler.getWorld().body) {
+        	if(t.x == x && t.y == y) {
+        		kill();
+        	}
+        }
         switch (direction){
             case "Left":
                 if(xCoord==0){
@@ -235,6 +253,7 @@ public class Player {
                 handler.getWorld().playerLocation[i][j]=false;
 
             }
+            State.setState(handler.getGame().gameOverState);
         }
     }
 
