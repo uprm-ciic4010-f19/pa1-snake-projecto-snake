@@ -29,6 +29,8 @@ public class Player {
     //ticks to verify how many times a method is called
     public int ticks = 0; 
     
+    public int score = 0;
+    
     public Player(Handler handler){
         this.handler = handler;
         xCoord = 0;
@@ -152,7 +154,8 @@ public class Player {
 
             }
         }
-
+        String s = "Score: " + score;
+        g.drawString(s, 0, 10);
 
     }
 
@@ -262,6 +265,8 @@ public class Player {
         }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
+        score++;
+        this.setJustAte(true);
     }
 
     public void kill(){
