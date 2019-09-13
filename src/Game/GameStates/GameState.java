@@ -14,7 +14,8 @@ import java.awt.*;
 public class GameState extends State {
 
     private WorldBase world;
-
+    public int ticks = 0;
+    
     public GameState(Handler handler){
         super(handler);
         world = new WorldOne(handler);
@@ -35,9 +36,13 @@ public class GameState extends State {
 
     @Override
     public void tick() {
-
+    	ticks++;
         handler.getWorld().tick();
-
+        //Enables pause state
+        if(handler.getKeyManager().pbutt && ticks>=30){
+            State.setState(handler.getGame().pauseState);
+            ticks = 0;
+        }
     }
 
     @Override
