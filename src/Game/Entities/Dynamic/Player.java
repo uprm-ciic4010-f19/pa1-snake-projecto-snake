@@ -26,7 +26,9 @@ public class Player {
     
     //setting a default speed to snake
     public int speed = 4;
-
+    //ticks to verify how many times a method is called
+    public int ticks = 0; 
+    
     public Player(Handler handler){
         this.handler = handler;
         xCoord = 0;
@@ -40,7 +42,7 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        //ticks++;
+        ticks++;
         if(moveCounter>=speed) {
             checkCollisionAndMove();
             moveCounter=0;
@@ -58,11 +60,28 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
             direction="Right";
         }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
-            State.setState(handler.getGame().pauseState);
-        }
+        if(ticks >= 5) {
+       	 
+       	 if(handler.getKeyManager().n) {
+    	        Eat();
+    	        handler.getWorld().appleOnBoard=true;
+    	        
+    	        ticks = 0;  
+            }        
+	        if((handler.getKeyManager().plus || handler.getKeyManager().equal) && speed>1) {
+	        	speed--;
+	        	ticks = 0;
+	        }
+	        
+	        if(handler.getKeyManager().minus) {
+	        	speed++;
+	        	ticks = 0;
+	        }
+       
+       }
 
-    }
+   }
+    
 
     public void checkCollisionAndMove(){
         handler.getWorld().playerLocation[xCoord][yCoord]=false;
