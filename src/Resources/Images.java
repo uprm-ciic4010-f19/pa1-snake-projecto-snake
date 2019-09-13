@@ -2,6 +2,8 @@ package Resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -18,6 +20,8 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
+    public static BufferedImage GameOver;
+    
 
     public Images() {
 
@@ -25,7 +29,6 @@ public class Images {
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
-
         try {
 
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
@@ -39,7 +42,7 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
-
+            GameOver = ImageIO.read(getClass().getResourceAsStream("/Sheets/gameoverSheet.png"));
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 

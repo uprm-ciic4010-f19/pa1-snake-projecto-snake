@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.GameStates.State;
+
 /**
  * Created by AlexVR on 7/2/2018.
  */
@@ -19,9 +21,16 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
-
+    
     public String direction;//is your first name one?
-
+    
+    //setting a default speed to snake
+    public int speed = 4;
+    //ticks to verify how many times a method is called
+    public int ticks = 0; 
+    
+    public int score = 0;
+    
     public Player(Handler handler){
         this.handler = handler;
         xCoord = 0;
@@ -35,10 +44,19 @@ public class Player {
 
     public void tick(){
         moveCounter++;
+<<<<<<< HEAD
         if(moveCounter>=5) { //Speed 
+=======
+        ticks++;
+        if(moveCounter>=speed) {
+>>>>>>> branch 'master' of https://github.com/uprm-ciic4010-f19/pa1-snake-projecto-snake.git
             checkCollisionAndMove();
             moveCounter=0;
         }
+//        if(moveCounter>=5) {
+//            checkCollisionAndMove();
+//            moveCounter=0;
+//        }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
         	if(direction !="Down")
             direction="Up";
@@ -52,13 +70,38 @@ public class Player {
         	if (direction != "Left")
             direction="Right";
         }
+        if(ticks >= 5) {
+       	 
+       	 if(handler.getKeyManager().n) {
+    	        Eat();
+    	        handler.getWorld().appleOnBoard=true;
+    	        
+    	        ticks = 0;  
+            }        
+	        if((handler.getKeyManager().plus || handler.getKeyManager().equal) && speed>1) {
+	        	speed--;
+	        	ticks = 0;
+	        }
+	        
+	        if(handler.getKeyManager().minus) {
+	        	speed++;
+	        	ticks = 0;
+	        }
+       
+       }
 
-    }
+   }
+    
 
     public void checkCollisionAndMove(){
         handler.getWorld().playerLocation[xCoord][yCoord]=false;
         int x = xCoord;
         int y = yCoord;
+        for(Tail t : handler.getWorld().body) {
+        	if(t.x == x && t.y == y) {
+        		kill();
+        	}
+        }
         switch (direction){
             case "Left":
                 if(xCoord==0){
@@ -119,7 +162,8 @@ public class Player {
 
             }
         }
-
+        String s = "Score: " + score;
+        g.drawString(s, 0, 10);
 
     }
 
@@ -230,6 +274,8 @@ public class Player {
         }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
+        score++;
+        this.setJustAte(true);
     }
 
     public void kill(){
@@ -240,6 +286,7 @@ public class Player {
                 handler.getWorld().playerLocation[i][j]=false;
 
             }
+            State.setState(handler.getGame().gameOverState);
         }
     }
 
