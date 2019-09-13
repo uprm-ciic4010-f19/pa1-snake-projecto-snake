@@ -10,7 +10,7 @@ import java.util.Random;
  * Created by AlexVR on 7/2/2018.
  */
 public class Player {
-
+	
     public int lenght;
     public boolean justAte;
     private Handler handler;
@@ -35,7 +35,7 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        if(moveCounter>=5) {
+        if(moveCounter>=5) { //Speed 
             checkCollisionAndMove();
             moveCounter=0;
         }
@@ -125,6 +125,7 @@ public class Player {
 
     public void Eat(){
         lenght++;
+
         Tail tail= null;
         handler.getWorld().appleLocation[xCoord][yCoord]=false;
         handler.getWorld().appleOnBoard=false;
