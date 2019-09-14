@@ -16,7 +16,7 @@ public class Player {
     public int lenght;
     public boolean justAte;
     private Handler handler;
-
+    private final int lastDigitofStudentID=1;     //My last 4 digits are 5561
     public int xCoord;
     public int yCoord;
 
@@ -192,7 +192,6 @@ public class Player {
 
                         }
                     }
-
                 }
                 break;
             case "Right":
@@ -270,6 +269,10 @@ public class Player {
         }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
+     
+        //Change speed after eating the apple.
+        this.speed -= this.lastDigitofStudentID+1;  // == this.speed=this.speed-2;
+        
         score = Math.sqrt(2*score + 1);
         this.setJustAte(true);
     }
