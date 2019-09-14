@@ -29,7 +29,7 @@ public class Player {
     //ticks to verify how many times a method is called
     public int ticks = 0; 
     
-    public int score = 0;
+    public double score = 0;
     
     public Player(Handler handler){
         this.handler = handler;
@@ -46,6 +46,7 @@ public class Player {
         moveCounter++;
         ticks++;
         if(moveCounter>=speed) {
+
             checkCollisionAndMove();
             moveCounter=0;
         }
@@ -85,7 +86,6 @@ public class Player {
 	        }
        
        }
-     
 
    }
     
@@ -271,7 +271,7 @@ public class Player {
         }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
-        score++;
+        score = Math.sqrt(2*score + 1);
         this.setJustAte(true);
     }
 
