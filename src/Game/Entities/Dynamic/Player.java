@@ -25,7 +25,7 @@ public class Player {
     public String direction;//is your first name one?
     
     //setting a default speed to snake
-    public int speed = 4;
+    public int speed = 5;
     //ticks to verify how many times a method is called
     public int ticks = 0; 
     
@@ -102,6 +102,7 @@ public class Player {
             case "Left":
                 if(xCoord==0){
                     kill();
+                	
                 }else{
                     xCoord--;
                 }
@@ -285,7 +286,7 @@ public class Player {
                 handler.getWorld().playerLocation[i][j]=false;
 
             }
-            //State.setState(handler.getGame().gameOverState);
+            State.setState(handler.getGame().gameOverState);
         }
     }
 
