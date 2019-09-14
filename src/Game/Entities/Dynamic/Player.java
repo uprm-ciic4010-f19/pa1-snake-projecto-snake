@@ -44,12 +44,8 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-<<<<<<< HEAD
-        if(moveCounter>=5) { //Speed 
-=======
         ticks++;
         if(moveCounter>=speed) {
->>>>>>> branch 'master' of https://github.com/uprm-ciic4010-f19/pa1-snake-projecto-snake.git
             checkCollisionAndMove();
             moveCounter=0;
         }
@@ -89,6 +85,7 @@ public class Player {
 	        }
        
        }
+     
 
    }
     
