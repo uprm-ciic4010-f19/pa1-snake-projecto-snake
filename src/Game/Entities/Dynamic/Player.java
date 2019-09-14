@@ -46,7 +46,6 @@ public class Player {
         moveCounter++;
         ticks++;
         if(moveCounter>=speed) {
-
             checkCollisionAndMove();
             moveCounter=0;
         }
@@ -283,7 +282,7 @@ public class Player {
                 handler.getWorld().playerLocation[i][j]=false;
 
             }
-            State.setState(handler.getGame().gameOverState);
+            //State.setState(handler.getGame().gameOverState);
         }
     }
 
